@@ -1,713 +1,859 @@
 <!DOCTYPE html>
 <html lang="fr">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Apprendre le Terminal Bash - Guide Complet</title>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-      <style>
-         .solution {
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Apprendre le Terminal Bash - Guide Complet</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+      .solution {
          max-height: 0;
          overflow: hidden;
          transition: max-height 0.3s ease-out;
-         }
-         .solution.show {
+      }
+
+      .solution.show {
          max-height: 1000px;
          transition: max-height 0.5s ease-in;
-         }
-         .tab-content {
+      }
+
+      .tab-content {
          display: none;
-         }
-         .tab-content.active {
+      }
+
+      .tab-content.active {
          display: block;
-         }
-         pre {
+      }
+
+      pre {
          background-color: #2d3748;
          color: #f7fafc;
          padding: 1rem;
          border-radius: 0.375rem;
          overflow-x: auto;
-         }
-         code {
+      }
+
+      code {
          font-family: 'Courier New', monospace;
-         }
-      </style>
-   </head>
-   <body class="bg-gray-100 font-sans">
-      <div class="container mx-auto px-4 py-8 max-w-6xl">
-         <!-- Header -->
-         <header class="bg-blue-600 text-white p-6 rounded-lg shadow-lg mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold mb-2">
-               <i class="fas fa-terminal mr-2"></i> Maîtrise du Terminal Bash
-            </h1>
-            <p class="text-blue-100">Le guide complet pour débutants en ligne de commande Linux</p>
-         </header>
-         <!-- Tabs Navigation -->
-         <div class="flex flex-wrap border-b border-gray-300 mb-6">
-            <button class="tab-btn py-2 px-4 font-medium text-blue-600 border-b-2 border-blue-600" data-tab="intro">
+      }
+   </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+   <div class="container mx-auto px-4 py-8 max-w-6xl">
+      <!-- Header -->
+      <header class="bg-blue-600 text-white p-6 rounded-lg shadow-lg mb-8">
+         <h1 class="text-3xl md:text-4xl font-bold mb-2">
+            <i class="fas fa-terminal mr-2"></i> Maîtrise du Terminal Bash
+         </h1>
+         <p class="text-blue-100">Le guide complet pour débutants en ligne de commande Linux</p>
+      </header>
+      <!-- Tabs Navigation -->
+      <div class="flex flex-wrap border-b border-gray-300 mb-6">
+         <button class="tab-btn py-2 px-4 font-medium text-blue-600 border-b-2 border-blue-600" data-tab="intro"
+            onclick="window.location.hash='intro'">
             <i class="fas fa-info-circle mr-2"></i>Introduction
-            </button>
-            <button class="tab-btn py-2 px-4 font-medium text-gray-600 hover:text-blue-600" data-tab="exercises">
+         </button>
+         <button class="tab-btn py-2 px-4 font-medium text-gray-600 hover:text-blue-600" data-tab="exercises"
+            onclick="window.location.hash='exercises'">
             <i class="fas fa-dumbbell mr-2"></i>Exercices
-            </button>
-            <button class="tab-btn py-2 px-4 font-medium text-gray-600 hover:text-blue-600" data-tab="cheatsheet">
+         </button>
+         <button class="tab-btn py-2 px-4 font-medium text-gray-600 hover:text-blue-600" data-tab="cheatsheet"
+            onclick="window.location.hash='cheatsheet'">
             <i class="fas fa-book mr-2"></i>Cheat Sheet
-            </button>
-            <button class="tab-btn py-2 px-4 font-medium text-gray-600 hover:text-blue-600" data-tab="concepts">
+         </button>
+         <button class="tab-btn py-2 px-4 font-medium text-gray-600 hover:text-blue-600" data-tab="concepts"
+            onclick="window.location.hash='concepts'">
             <i class="fas fa-brain mr-2"></i>Concepts Linux
-            </button>
-         </div>
-         <!-- Introduction Tab -->
-         <div id="intro" class="tab-content active bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-bold mb-4 text-blue-700">
-               <i class="fas fa-info-circle mr-2"></i> Pourquoi apprendre le terminal ?
-            </h2>
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                     <i class="fas fa-question mr-2"></i> Qu'est-ce qu'un terminal ?
-                  </h3>
-                  <p class="text-gray-700 mb-3">
-                     Un terminal (ou console) est une interface textuelle qui permet d'interagir avec un système d'exploitation en tapant des commandes. Contrairement aux interfaces graphiques (GUI), il offre un contrôle précis et puissant sur le système.
-                  </p>
-                  <p class="text-gray-700">
-                     Sous Linux, le terminal utilise généralement le shell Bash (Bourne Again SHell), qui est un interpréteur de commandes avancé.
-                  </p>
-               </div>
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                     <i class="fas fa-shield-alt mr-2"></i> Pourquoi c'est essentiel pour le hacking ?
-                  </h3>
-                  <p class="text-gray-700 mb-3">
-                     Le terminal est l'outil principal des hackers car il permet d'accéder à toutes les fonctionnalités du système, d'automatiser des tâches, d'analyser des réseaux, et d'exécuter des scripts puissants.
-                  </p>
-                  <p class="text-gray-700">
-                     La plupart des outils de cybersécurité (comme Nmap, Metasploit, Wireshark) s'utilisent en ligne de commande. Maîtriser Bash est donc une compétence fondamentale.
-                  </p>
-               </div>
-            </div>
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
-               <div class="flex">
-                  <div class="flex-shrink-0">
-                     <i class="fas fa-exclamation-triangle text-yellow-400 mt-1 mr-3"></i>
-                  </div>
-                  <div>
-                     <h3 class="text-lg font-medium text-yellow-800">Conseil de sécurité</h3>
-                     <p class="text-yellow-700">
-                        Soyez prudent avec les commandes que vous exécutez, surtout avec <code>sudo</code>. Une mauvaise commande peut endommager votre système ou vos données.
-                     </p>
-                  </div>
-               </div>
-            </div>
-            <h3 class="text-xl font-semibold mb-3 text-blue-600">
-               <i class="fas fa-play mr-2"></i> Comment ouvrir un terminal ?
-            </h3>
-            <ul class="list-disc pl-5 mb-6 text-gray-700 space-y-2">
-               <li><strong>Linux :</strong> Ctrl+Alt+T ou chercher "Terminal" dans le menu applications</li>
-               <li><strong>MacOS :</strong> Chercher "Terminal" dans Spotlight (Cmd+Espace)</li>
-               <li><strong>Windows :</strong> Installer WSL ou utiliser Git Bash</li>
-            </ul>
-            <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-               <div class="flex">
-                  <div class="flex-shrink-0">
-                     <i class="fas fa-lightbulb text-blue-400 mt-1 mr-3"></i>
-                  </div>
-                  <div>
-                     <h3 class="text-lg font-medium text-blue-800">Bon à savoir</h3>
-                     <p class="text-blue-700">
-                        Vous pouvez personnaliser votre terminal (couleurs, police, alias) pour le rendre plus agréable à utiliser. Le fichier de configuration est généralement <code>~/.bashrc</code>.
-                     </p>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Exercises Tab -->
-         <div id="exercises" class="tab-content bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-bold mb-6 text-blue-700">
-               <i class="fas fa-dumbbell mr-2"></i> 10 Exercices pour maîtriser Bash
-            </h2>
-            <div class="space-y-6">
-               <!-- Exercice 1 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 1 : Navigation de base</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Parcourez l’arborescence pour repérer votre position et explorer d’autres répertoires.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Comprendre <code>pwd</code>, <code>ls</code>, <code>cd</code>.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
-                     <div class="solution mt-3">
-                        <ol class="list-decimal list-inside mb-2">
-                           <li><code>pwd</code> → notez votre répertoire courant.</li>
-                           <li><code>ls -lah</code> → liste détaillée (fichiers cachés inclus).</li>
-                           <li><code>cd /etc</code> puis <code>pwd</code> et <code>ls</code>.</li>
-                           <li><code>cd ~</code> puis <code>cd -</code> pour revenir au précédent.</li>
-                           <li><code>cd /var/log</code>, puis <code>cd ..</code> pour remonter.</li>
-                        </ol>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : utilisez Tab pour compléter automatiquement.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 2 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 2 : Création de fichiers et répertoires</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Construisez une structure de projet, puis visualisez-la.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Maîtriser <code>mkdir</code>, <code>touch</code>, <code>rm</code> et <code>tree</code>.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
-                     <div class="solution mt-3">
-                        <ol class="list-decimal list-inside mb-2">
-                           <li><code>mkdir -p mon_projet/{src,docs,tests}</code></li>
-                           <li><code>touch mon_projet/src/main.sh mon_projet/README.md</code></li>
-                           <li><code>tree mon_projet</code> pour voir :</li>
-                        </ol>
-                        <pre><code>mon_projet/
- ├── docs
- │   └── README.md
- ├── src
- │   └── main.sh
- └── tests</code></pre>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Installez <code>tree</code> si nécessaire.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 2bis -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 2bis : Arborescence complexe</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Créez en une ligne plusieurs niveaux, puis vérifiez.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Utiliser les accolades imbriquées.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
-                     <div class="solution mt-3">
-                        <pre><code>mkdir -p projet/{app/{bin,lib},config/{dev,prod},data/{in,out}}</code></pre>
-                        <p>Puis <code>tree projet</code> pour voir :</p>
-                        <pre><code>projet/
- ├── app
- │   ├── bin
- │   └── lib
- ├── config
- │   ├── dev
- │   └── prod
- └── data
-     ├── in
-     └── out</code></pre>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 3 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 3 : Visualisation de fichiers</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Affichez des fichiers système avec <code>cat</code>, <code>less</code>, <code>head</code>, <code>tail</code>, <code>wc</code>.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
-                     <div class="solution mt-3">
-                        <ol class="list-decimal list-inside mb-2">
-                           <li><code>cat /etc/passwd</code></li>
-                           <li><code>less /etc/passwd</code> (quittez avec <kbd>q</kbd>)</li>
-                           <li><code>head -n 5 /etc/passwd</code></li>
-                           <li><code>tail -n 5 /etc/passwd</code></li>
-                           <li><code>wc -l /etc/passwd</code></li>
-                        </ol>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>less +/motif fichier</code> cherche directement.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 4 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 4 : Redirections et pipes</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Redirigez la sortie, ajoutez du contenu et pipez vers d’autres commandes.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
-                     <div class="solution mt-3">
-                        <ul class="list-disc list-inside mb-2">
-                           <li><code>ls -l > liste.txt</code></li>
-                           <li><code>echo "bonjour" >> liste.txt</code></li>
-                           <li><code>grep "root" /etc/passwd > root.txt</code></li>
-                           <li><code>ls -l | grep "\.txt"</code></li>
-                           <li><code>ls -l | tee sortie.txt</code></li>
-                        </ul>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>2>&1</code> redirige aussi stderr.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 5 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 5 : Recherche avec grep</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Utilisez <code>grep</code> pour filtrer du texte avec <code>-i</code>, <code>-v</code>, <code>-r</code>, <code>-E</code>.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
-                     <div class="solution mt-3">
-                        <pre><code>grep "bash" /etc/passwd
- grep -i "BASH" /etc/passwd
- grep -v "nologin" /etc/passwd
- grep -r "error" /var/log
- ps aux | grep "chrome"
- grep -E "^[a-z]+:" /etc/passwd</code></pre>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Ajoutez <code>--color=auto</code> pour surligner.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 6 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 6 : Gestion des permissions</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Vérifiez et modifiez permissions et propriétaires.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
-                     <div class="solution mt-3">
-                        <ol class="list-decimal list-inside mb-2">
-                           <li><code>ls -l script.sh</code></li>
-                           <li><code>chmod +x script.sh</code></li>
-                           <li><code>chmod 644 script.sh</code></li>
-                           <li><code>chmod u=rw,g=r,o= script.sh</code></li>
-                           <li><code>sudo chown root:root script.sh</code></li>
-                        </ol>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>stat fichier</code> donne le détail.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 7 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 7 : Historique et complétion</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Exploitez l’historique et raccourcis clavier.</p>
-                     <div class="solution mt-3">
-                        <pre><code>history
- !42
- !!
- !ls
- Ctrl+R
- Ctrl+A / Ctrl+E
- Ctrl+U / Ctrl+K
- Ctrl+Y
- Alt.</code></pre>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>history | grep apt</code> pour filtrer.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 8 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 8 : Variables d’environnement</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Créez, affichez et supprimez des variables.</p>
-                     <div class="solution mt-3">
-                        <ol class="list-decimal list-inside mb-2">
-                           <li><code>echo $HOME</code></li>
-                           <li><code>export MA_VAR="test"</code></li>
-                           <li><code>env | grep MA_VAR</code></li>
-                           <li><code>export PATH=$PATH:/opt/bin</code></li>
-                           <li><code>unset MA_VAR</code></li>
-                        </ol>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Pour rendre permanent, ajoutez à <code>~/.bashrc</code>.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 9 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 9 : Processus et jobs</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Surveillez et contrôlez les processus.</p>
-                     <div class="solution mt-3">
-                        <ol class="list-decimal list-inside mb-2">
-                           <li><code>ps aux</code> → repérez un PID.</li>
-                           <li><code>kill PID</code> → termine le processus.</li>
-                           <li><code>kill -9 PID</code> → force l’arrêt.</li>
-                           <li><code>Ctrl+Z</code> → suspend le job.</li>
-                           <li><code>bg</code> et <code>fg</code> → gérer arrière/avant plan.</li>
-                           <li><code>jobs</code> → liste des jobs.</li>
-                        </ol>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Installez <code>htop</code> pour interface améliorée.</p>
-                     </div>
-                  </div>
-               </div>
-               <!-- Exercice 10 -->
-               <div class="border border-gray-200 rounded-lg overflow-hidden">
-                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 10 : Script Bash simple</h3>
-                  </div>
-                  <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Rédigez un script qui affiche des infos système.</p>
-                     <div class="solution mt-3">
-                        <pre><code>#!/bin/bash
- # Mon premier script
- set -euo pipefail
- echo \"Bonjour \$USER !\"
- echo \"Date : \$(date '+%Y-%m-%d %H:%M:%S')\"
- echo \"Uptime : \$(uptime -p)\"
- echo \"Disques :\"
- df -h --output=source,fstype,size,used,avail,pcent | grep -v tmpfs
- echo \"Processus : \$(ps aux | wc -l)\"</code></pre>
-                        <p class="mt-2 mb-2">Pour exécuter :</p>
-                        <pre><code>chmod +x script.sh
- ./script.sh</code></pre>
-                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Le shebang et <code>set -euo pipefail</code> renforcent la robustesse.</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- Cheat Sheet Tab -->
-         <div id="cheatsheet" class="tab-content bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-bold mb-6 text-blue-700">
-               <i class="fas fa-book mr-2"></i> Cheat Sheet des Commandes Bash
-            </h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-               <!-- Fichiers et répertoires -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
-                     <i class="fas fa-folder mr-2"></i> Fichiers & Répertoires
-                  </h3>
-                  <ul class="space-y-2">
-                     <li><code>ls</code> - Lister les fichiers</li>
-                     <li><code>ls -l</code> - Lister avec détails</li>
-                     <li><code>ls -a</code> - Afficher fichiers cachés</li>
-                     <li><code>cd</code> - Changer de répertoire</li>
-                     <li><code>pwd</code> - Afficher le répertoire courant</li>
-                     <li><code>mkdir</code> - Créer un répertoire</li>
-                     <li><code>rmdir</code> - Supprimer répertoire vide</li>
-                     <li><code>rm -r</code> - Supprimer récursivement</li>
-                     <li><code>cp</code> - Copier</li>
-                     <li><code>mv</code> - Déplacer/renommer</li>
-                     <li><code>touch</code> - Créer fichier vide</li>
-                  </ul>
-               </div>
-               <!-- Visualisation et recherche -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
-                     <i class="fas fa-search mr-2"></i> Visualisation & Recherche
-                  </h3>
-                  <ul class="space-y-2">
-                     <li><code>cat</code> - Afficher fichier</li>
-                     <li><code>less</code> - Afficher page par page</li>
-                     <li><code>head</code> - Premières lignes</li>
-                     <li><code>tail</code> - Dernières lignes</li>
-                     <li><code>tail -f</code> - Suivre en temps réel</li>
-                     <li><code>grep</code> - Rechercher du texte</li>
-                     <li><code>find</code> - Rechercher fichiers</li>
-                     <li><code>locate</code> - Recherche rapide</li>
-                     <li><code>wc</code> - Compter lignes/mots</li>
-                     <li><code>diff</code> - Comparer fichiers</li>
-                  </ul>
-               </div>
-               <!-- Permissions -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
-                     <i class="fas fa-lock mr-2"></i> Permissions
-                  </h3>
-                  <ul class="space-y-2">
-                     <li><code>chmod</code> - Modifier permissions</li>
-                     <li><code>chown</code> - Modifier propriétaire</li>
-                     <li><code>chgrp</code> - Modifier groupe</li>
-                     <li><code>umask</code> - Permissions par défaut</li>
-                     <li><code>sudo</code> - Exécuter en root</li>
-                     <li><code>su</code> - Changer d'utilisateur</li>
-                     <li><code>passwd</code> - Changer mot de passe</li>
-                  </ul>
-               </div>
-               <!-- Processus -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
-                     <i class="fas fa-tasks mr-2"></i> Processus
-                  </h3>
-                  <ul class="space-y-2">
-                     <li><code>ps</code> - Lister processus</li>
-                     <li><code>top</code> - Moniteur interactif</li>
-                     <li><code>htop</code> - Version améliorée</li>
-                     <li><code>kill</code> - Terminer processus</li>
-                     <li><code>killall</code> - Terminer par nom</li>
-                     <li><code>pkill</code> - Terminer par motif</li>
-                     <li><code>bg</code> - Mettre en arrière-plan</li>
-                     <li><code>fg</code> - Ramener au premier plan</li>
-                     <li><code>jobs</code> - Lister les jobs</li>
-                  </ul>
-               </div>
-               <!-- Réseau -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
-                     <i class="fas fa-network-wired mr-2"></i> Réseau
-                  </h3>
-                  <ul class="space-y-2">
-                     <li><code>ifconfig</code> - Config réseau</li>
-                     <li><code>ip</code> - Version moderne</li>
-                     <li><code>ping</code> - Tester connexion</li>
-                     <li><code>netstat</code> - Statistiques réseau</li>
-                     <li><code>ss</code> - Sockets en écoute</li>
-                     <li><code>traceroute</code> - Tracer route</li>
-                     <li><code>dig</code> - Requêtes DNS</li>
-                     <li><code>nslookup</code> - Recherche DNS</li>
-                     <li><code>wget</code> - Téléchargement</li>
-                     <li><code>curl</code> - Transfert URL</li>
-                  </ul>
-               </div>
-               <!-- Divers -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
-                     <i class="fas fa-random mr-2"></i> Divers
-                  </h3>
-                  <ul class="space-y-2">
-                     <li><code>man</code> - Manuel</li>
-                     <li><code>--help</code> - Aide rapide</li>
-                     <li><code>history</code> - Historique</li>
-                     <li><code>alias</code> - Créer alias</li>
-                     <li><code>unalias</code> - Supprimer alias</li>
-                     <li><code>echo</code> - Afficher texte</li>
-                     <li><code>date</code> - Date/heure</li>
-                     <li><code>tar</code> - Archivage</li>
-                     <li><code>zip/unzip</code> - Compression</li>
-                     <li><code>df</code> - Espace disque</li>
-                     <li><code>du</code> - Utilisation espace</li>
-                  </ul>
-               </div>
-            </div>
-            <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
-               <h3 class="text-lg font-semibold mb-2 text-blue-700">
-                  <i class="fas fa-download mr-2"></i> Télécharger cette Cheat Sheet
-               </h3>
-               <p class="mb-3">Vous pouvez sauvegarder cette page (Ctrl+S) ou imprimer (Ctrl+P) pour avoir cette cheat sheet toujours à portée de main.</p>
-               <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
-               <i class="fas fa-file-pdf mr-2"></i> Exporter en PDF
-               </button>
-            </div>
-         </div>
-         <!-- Concepts Linux Tab -->
-         <div id="concepts" class="tab-content bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-bold mb-6 text-blue-700">
-               <i class="fas fa-brain mr-2"></i> Concepts Fondamentaux de Linux
-            </h2>
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-               <!-- Système de fichiers -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                     <i class="fas fa-folder-tree mr-2"></i> Système de fichiers Linux
-                  </h3>
-                  <p class="mb-3">Linux utilise une structure arborescente unifiée, avec <code>/</code> comme racine. Principaux répertoires :</p>
-                  <ul class="list-disc pl-5 space-y-1">
-                     <li><code>/bin</code> - Commandes essentielles</li>
-                     <li><code>/etc</code> - Fichiers de configuration</li>
-                     <li><code>/home</code> - Répertoires utilisateurs</li>
-                     <li><code>/var</code> - Fichiers variables (logs)</li>
-                     <li><code>/tmp</code> - Fichiers temporaires</li>
-                     <li><code>/usr</code> - Programmes utilisateurs</li>
-                     <li><code>/root</code> - Home de root</li>
-                     <li><code>/dev</code> - Périphériques</li>
-                  </ul>
-               </div>
-               <!-- Permissions -->
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                     <i class="fas fa-user-shield mr-2"></i> Système de permissions
-                  </h3>
-                  <p class="mb-2">Chaque fichier a des permissions pour :</p>
-                  <ul class="list-disc pl-5 mb-3 space-y-1">
-                     <li>Propriétaire (user)</li>
-                     <li>Groupe (group)</li>
-                     <li>Autres (others)</li>
-                  </ul>
-                  <p class="mb-2">Types de permissions :</p>
-                  <ul class="list-disc pl-5 space-y-1">
-                     <li><strong>r</strong> (4) - Lecture</li>
-                     <li><strong>w</strong> (2) - Écriture</li>
-                     <li><strong>x</strong> (1) - Exécution</li>
-                  </ul>
-                  <p class="mt-3 text-sm">Exemple : <code>chmod 755</code> = rwxr-xr-x</p>
-               </div>
-            </div>
-            <!-- Users et privilèges -->
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
-               <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                  <i class="fas fa-users mr-2"></i> Utilisateurs et Privilèges
-               </h3>
-               <div class="grid md:grid-cols-2 gap-6">
-                  <div>
-                     <h4 class="font-medium mb-2">Fichiers importants :</h4>
-                     <ul class="list-disc pl-5 space-y-1">
-                        <li><code>/etc/passwd</code> - Comptes utilisateurs</li>
-                        <li><code>/etc/shadow</code> - Mots de passe hashés</li>
-                        <li><code>/etc/group</code> - Groupes</li>
-                        <li><code>/etc/sudoers</code> - Droits sudo</li>
-                     </ul>
-                  </div>
-                  <div>
-                     <h4 class="font-medium mb-2">Commandes :</h4>
-                     <ul class="list-disc pl-5 space-y-1">
-                        <li><code>useradd</code> - Ajouter utilisateur</li>
-                        <li><code>usermod</code> - Modifier utilisateur</li>
-                        <li><code>userdel</code> - Supprimer utilisateur</li>
-                        <li><code>groupadd</code> - Ajouter groupe</li>
-                        <li><code>passwd</code> - Changer mot de passe</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-            <!-- SUID, sudo -->
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                     <i class="fas fa-user-secret mr-2"></i> SUID/GUID
-                  </h3>
-                  <p class="mb-3">Bit spécial qui permet d'exécuter un programme avec les droits de son propriétaire (SUID) ou de son groupe (GUID).</p>
-                  <p class="mb-2">Exemple :</p>
-                  <pre class="text-sm"><code>-rwsr-xr-x 1 root root 30800 Aug 21  2020 /usr/bin/passwd</code></pre>
-                  <p class="mt-3 text-sm">Le <code>s</code> indique que le SUID est activé. Risque de sécurité si mal configuré.</p>
-               </div>
-               <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                     <i class="fas fa-crown mr-2"></i> Sudo
-                  </h3>
-                  <p class="mb-3">Commande qui permet d'exécuter des commandes avec les privilèges d'un autre utilisateur (par défaut root).</p>
-                  <p class="mb-2">Exemples :</p>
-                  <pre class="text-sm"><code>sudo apt update          # Exécute en tant que root
-sudo -u user command    # Exécute en tant qu'un autre utilisateur
-sudo -i                 # Ouvre un shell root</code></pre>
-                  <p class="mt-3 text-sm">Configuré dans <code>/etc/sudoers</code> (toujours utiliser <code>visudo</code> pour éditer).</p>
-               </div>
-            </div>
-            <!-- Variables d'environnement -->
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
-               <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                  <i class="fas fa-code mr-2"></i> Variables d'Environnement
-               </h3>
-               <p class="mb-3">Variables globales qui influencent le comportement des processus. Essentielles pour le fonctionnement du système.</p>
-               <div class="grid md:grid-cols-2 gap-6">
-                  <div>
-                     <h4 class="font-medium mb-2">Variables importantes :</h4>
-                     <ul class="list-disc pl-5 space-y-1">
-                        <li><code>PATH</code> - Chemins pour les commandes</li>
-                        <li><code>HOME</code> - Répertoire home</li>
-                        <li><code>USER</code> - Nom d'utilisateur</li>
-                        <li><code>SHELL</code> - Shell par défaut</li>
-                        <li><code>PS1</code> - Prompt du shell</li>
-                     </ul>
-                  </div>
-                  <div>
-                     <h4 class="font-medium mb-2">Commandes :</h4>
-                     <ul class="list-disc pl-5 space-y-1">
-                        <li><code>env</code> - Afficher toutes les variables</li>
-                        <li><code>echo $VAR</code> - Afficher une variable</li>
-                        <li><code>export VAR=valeur</code> - Définir</li>
-                        <li><code>unset VAR</code> - Supprimer</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-            <!-- Redirections et pipes -->
+         </button>
+      </div>
+      <!-- Introduction Tab -->
+      <div id="intro" class="tab-content active bg-white p-6 rounded-lg shadow-md mb-6">
+         <h2 class="text-2xl font-bold mb-4 text-blue-700">
+            <i class="fas fa-info-circle mr-2"></i> Pourquoi apprendre le terminal ?
+         </h2>
+         <div class="grid md:grid-cols-2 gap-6 mb-8">
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                <h3 class="text-xl font-semibold mb-3 text-blue-600">
-                  <i class="fas fa-arrows-alt-h mr-2"></i> Redirections et Pipes
+                  <i class="fas fa-question mr-2"></i> Qu'est-ce qu'un terminal ?
                </h3>
-               <p class="mb-3">Mécanismes pour manipuler les flux d'entrée/sortie des commandes.</p>
-               <div class="overflow-x-auto">
-                  <table class="min-w-full bg-white">
-                     <thead>
-                        <tr class="bg-gray-100">
-                           <th class="py-2 px-4 border">Symbole</th>
-                           <th class="py-2 px-4 border">Description</th>
-                           <th class="py-2 px-4 border">Exemple</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td class="py-2 px-4 border"><code>></code></td>
-                           <td class="py-2 px-4 border">Redirige la sortie vers un fichier (écrase)</td>
-                           <td class="py-2 px-4 border"><code>ls > fichiers.txt</code></td>
-                        </tr>
-                        <tr>
-                           <td class="py-2 px-4 border"><code>>></code></td>
-                           <td class="py-2 px-4 border">Ajoute la sortie à un fichier</td>
-                           <td class="py-2 px-4 border"><code>echo "test" >> fichier.txt</code></td>
-                        </tr>
-                        <tr>
-                           <td class="py-2 px-4 border"><code><</code></td>
-                           <td class="py-2 px-4 border">Redirige un fichier vers l'entrée</td>
-                           <td class="py-2 px-4 border"><code>sort < fichier.txt</code></td>
-                        </tr>
-                        <tr>
-                           <td class="py-2 px-4 border"><code>|</code></td>
-                           <td class="py-2 px-4 border">Pipe (passe la sortie à une autre commande)</td>
-                           <td class="py-2 px-4 border"><code>ls -l | grep ".txt"</code></td>
-                        </tr>
-                     </tbody>
-                  </table>
+               <p class="text-gray-700 mb-3">
+                  Un terminal (ou console) est une interface textuelle qui permet d'interagir avec un système
+                  d'exploitation en tapant des commandes. Contrairement aux interfaces graphiques (GUI), il offre un
+                  contrôle précis et puissant sur le système.
+               </p>
+               <p class="text-gray-700">
+                  Sous Linux, le terminal utilise généralement le shell Bash (Bourne Again SHell), qui est un
+                  interpréteur de commandes avancé.
+               </p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600">
+                  <i class="fas fa-shield-alt mr-2"></i> Pourquoi c'est essentiel pour le hacking ?
+               </h3>
+               <p class="text-gray-700 mb-3">
+                  Le terminal est l'outil principal des hackers car il permet d'accéder à toutes les fonctionnalités du
+                  système, d'automatiser des tâches, d'analyser des réseaux, et d'exécuter des scripts puissants.
+               </p>
+               <p class="text-gray-700">
+                  La plupart des outils de cybersécurité (comme Nmap, Metasploit, Wireshark) s'utilisent en ligne de
+                  commande. Maîtriser Bash est donc une compétence fondamentale.
+               </p>
+            </div>
+         </div>
+         <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+            <div class="flex">
+               <div class="flex-shrink-0">
+                  <i class="fas fa-exclamation-triangle text-yellow-400 mt-1 mr-3"></i>
+               </div>
+               <div>
+                  <h3 class="text-lg font-medium text-yellow-800">Conseil de sécurité</h3>
+                  <p class="text-yellow-700">
+                     Soyez prudent avec les commandes que vous exécutez, surtout avec <code>sudo</code>. Une mauvaise
+                     commande peut endommager votre système ou vos données.
+                  </p>
+               </div>
+            </div>
+         </div>
+         <h3 class="text-xl font-semibold mb-3 text-blue-600">
+            <i class="fas fa-play mr-2"></i> Comment ouvrir un terminal ?
+         </h3>
+         <ul class="list-disc pl-5 mb-6 text-gray-700 space-y-2">
+            <li><strong>Linux :</strong> Ctrl+Alt+T ou chercher "Terminal" dans le menu applications</li>
+            <li><strong>MacOS :</strong> Chercher "Terminal" dans Spotlight (Cmd+Espace)</li>
+            <li><strong>Windows :</strong> Installer WSL ou utiliser Git Bash</li>
+         </ul>
+         <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+            <div class="flex">
+               <div class="flex-shrink-0">
+                  <i class="fas fa-lightbulb text-blue-400 mt-1 mr-3"></i>
+               </div>
+               <div>
+                  <h3 class="text-lg font-medium text-blue-800">Bon à savoir</h3>
+                  <p class="text-blue-700">
+                     Vous pouvez personnaliser votre terminal (couleurs, police, alias) pour le rendre plus agréable à
+                     utiliser. Le fichier de configuration est généralement <code>~/.bashrc</code>.
+                  </p>
                </div>
             </div>
          </div>
       </div>
-      <script>
-         // Tab switching
+      <!-- Exercises Tab -->
+      <div id="exercises" class="tab-content bg-white p-6 rounded-lg shadow-md mb-6">
+         <h2 class="text-2xl font-bold mb-6 text-blue-700">
+            <i class="fas fa-dumbbell mr-2"></i> 10 Exercices pour maîtriser Bash
+         </h2>
+         <div class="space-y-6">
+            <!-- Exercise 1 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 1: Navigation et permissions</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Objectif :</strong> Maîtriser la création d'arborescence et gestion des
+                     permissions.</p>
+
+                  <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4 rounded">
+                     <h4 class="font-medium text-blue-800 mb-2"><i class="fas fa-info-circle mr-2"></i>Contexte :</h4>
+                     <p>Vous devez créer une structure de projet avec des permissions adaptées :</p>
+                     <pre class="mt-2 bg-black-100 p-3 rounded"><code>mon_projet/
+├── docs/               (permissions: 755)
+│   ├── rapport.txt     (permissions: 644)
+│   └── images/         (permissions: 755)
+├── src/                (permissions: 755)
+│   ├── main.sh         (permissions: 755 - exécutable)
+│   └── utils/          (permissions: 755)
+└── logs/               (permissions: 755)</code></pre>
+                  </div>
+
+                  <div class="space-y-4">
+                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-medium mb-2">Étape 1: Création de l'arborescence</h4>
+                        <p class="mb-2">Créez la structure de dossiers et fichiers :</p>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-3 rounded">
+                           <p class="text-yellow-700"><i class="fas fa-lightbulb mr-2"></i>Indice : Utilisez
+                              <code>mkdir -p</code> et <code>touch</code></p>
+                        </div>
+                        <button
+                           class="solution-step-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                           <i class="fas fa-eye mr-1"></i> Voir solution étape 1
+                        </button>
+                        <div class="solution-step mt-2">
+                           <pre><code># Création récursive des dossiers
+mkdir mon_projet
+cd mon_projet
+mkdir -p docs/images src/utils logs
+# Création des fichiers
+touch docs/rapport.txt src/main.sh
+
+# Vérification
+tree mon_projet</code></pre>
+                        </div>
+                     </div>
+
+                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-medium mb-2">Étape 2: Modification des permissions</h4>
+                        <p class="mb-2">Appliquez les permissions correctes :</p>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-3 rounded">
+                           <p class="text-yellow-700"><i class="fas fa-lightbulb mr-2"></i>Rappel : 755 (rwxr-xr-x) pour
+                              dossiers, 644 (rw-r--r--) pour fichiers normaux, 755 pour scripts exécutables</p>
+                        </div>
+                        <button
+                           class="solution-step-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                           <i class="fas fa-eye mr-1"></i> Voir solution étape 2
+                        </button>
+                        <div class="solution-step mt-2">
+                           <pre><code># Permissions pour les dossiers (755)
+find mon_projet -type d -exec chmod 755 {} \;
+
+# Permissions pour les fichiers normaux (644)
+find mon_projet -type f -exec chmod 644 {} \;
+
+# Permission spéciale pour le script (755)
+chmod 755 mon_projet/src/main.sh
+
+# Vérification finale
+ls -lR mon_projet</code></pre>
+                        </div>
+                     </div>
+
+                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-medium mb-2">Étape 3: Vérification et tests</h4>
+                        <p class="mb-2">Testez votre structure :</p>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                           <li>Essayez de créer un fichier dans docs/images/</li>
+                           <li>Tentez d'exécuter main.sh avec <code>./mon_projet/src/main.sh</code></li>
+                           <li>Vérifiez que vous ne pouvez pas modifier rapport.txt sans droits en écriture</li>
+                        </ul>
+                     </div>
+                  </div>
+
+                  <div class="mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                     <h4 class="font-medium text-green-800 mb-2"><i class="fas fa-check-circle mr-2"></i>Validation :
+                     </h4>
+                     <p>Pour valider l'exercice, exécutez ces commandes de vérification :</p>
+                     <pre
+                        class="mt-2"><code># Vérification de l'arborescence
+[ -d "mon_projet/docs/images" ] && echo "OK - docs/images existe" || echo "ERREUR"
+[ -f "mon_projet/src/main.sh" ] && echo "OK - main.sh existe" || echo "ERREUR"
+
+# Vérification des permissions
+[ $(stat -c "%a" "mon_projet/src/main.sh") -eq 755 ] && echo "OK - main.sh a 755" || echo "ERREUR"
+[ $(stat -c "%a" "mon_projet/docs/rapport.txt") -eq 644 ] && echo "OK - rapport.txt a 644" || echo "ERREUR"</code></pre>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 2 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 2: Création de fichiers et répertoires</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Créez une structure de répertoires et des fichiers dans
+                     votre home directory.</p>
+                  <p class="mb-3"><strong>Objectif :</strong> Maîtriser la création et gestion des fichiers/répertoires.
+                  </p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>mkdir mon_projet                     # Crée un répertoire
+mkdir -p mon_projet/{docs,src,tests} # Crée une arborescence
+touch mon_projet/src/main.sh         # Crée un fichier vide
+echo "#!/bin/bash" > mon_projet/src/main.sh  # Écrit dans le fichier
+rmdir mon_projet/tests               # Supprime un répertoire vide
+rm -r mon_projet/docs                # Supprime récursivement</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce :
+                        <code>mkdir -p</code> crée tous les répertoires parents nécessaires.</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 3 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 3: Visualisation de fichiers</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Affichez le contenu de différents fichiers système.</p>
+                  <p class="mb-3"><strong>Objectif :</strong> Apprendre à lire des fichiers avec différentes commandes.
+                  </p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>cat /etc/passwd              # Affiche tout le fichier
+less /etc/passwd             # Affiche page par page (quitter avec q)
+head -n 5 /etc/passwd        # Affiche les 5 premières lignes
+tail -n 5 /etc/passwd        # Affiche les 5 dernières lignes
+wc -l /etc/passwd            # Compte le nombre de lignes</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce :
+                        <code>less</code> est idéal pour les longs fichiers (flèches pour naviguer, / pour chercher).
+                     </p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 4 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 4: Redirections et pipes</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Utilisez les redirections pour manipuler les entrées/sorties
+                     des commandes.</p>
+                  <p class="mb-3"><strong>Objectif :</strong> Comprendre les flux standards et les pipes.</p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>ls -l > liste_fichiers.txt    # Redirige la sortie vers un fichier
+echo "bonjour" >> liste_fichiers.txt  # Ajoute à la fin du fichier
+grep "root" /etc/passwd > root_info.txt  # Filtre et redirige
+ls -l | grep ".txt"          # Pipe: utilise la sortie d'une commande comme entrée
+ls -l | tee liste.txt        # Affiche ET enregistre dans un fichier</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : <code>></code>
+                        écrase le fichier, <code>>></code> ajoute à la fin.</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 5 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 5: Recherche avec grep</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Recherchez des motifs dans des fichiers et dans la sortie
+                     d'autres commandes.</p>
+                  <p class="mb-3"><strong>Objectif :</strong> Maîtriser grep pour filtrer efficacement du texte.</p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>grep "bash" /etc/passwd           # Recherche simple
+grep -i "BASH" /etc/passwd        # Insensible à la casse
+grep -v "nologin" /etc/passwd     # Inverser la recherche
+grep -r "error" /var/log          # Recherche récursive
+ps aux | grep "chrome"            # Recherche dans la sortie d'une commande
+grep -E "^[a-z]+:" /etc/passwd    # Expressions régulières</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce :
+                        <code>-E</code> active les expressions régulières étendues (plus puissantes).</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 6 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 6: Gestion des permissions</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Modifiez les permissions de fichiers et comprenez le système
+                     de droits Unix.</p>
+                  <p class="mb-3"><strong>Objectif :</strong> Comprendre chmod, chown et les permissions.</p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>ls -l                    # Voir les permissions
+chmod +x script.sh       # Ajoute le droit d'exécution
+chmod 755 script.sh      # rwxr-xr-x (user:rwx, group:r-x, others:r-x)
+chmod u=rw,g=r,o= fichier  # Notation symbolique
+chown user:group fichier # Change propriétaire et groupe
+sudo chown root fichier  # Nécessite les droits root</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : Les
+                        permissions sont en octal (4:lecture, 2:écriture, 1:exécution).</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 7 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 7: Historique et complétion</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Utilisez efficacement l'historique des commandes et les
+                     raccourcis clavier.</p>
+                  <p class="mb-3"><strong>Objectif :</strong> Gagner en productivité avec les raccourcis Bash.</p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>history                # Affiche l'historique
+!42                    # Exécute la commande n°42
+!!                     # Répète la dernière commande
+!ls                    # Répète la dernière commande ls
+Ctrl+R                 # Recherche dans l'historique
+Ctrl+A / Ctrl+E        # Début/Fin de ligne
+Ctrl+U / Ctrl+K        # Couper avant/après le curseur
+Ctrl+Y                 # Coller le texte coupé
+Alt+.                  # Insère le dernier argument</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce :
+                        <code>history | grep "apt"</code> pour trouver des commandes spécifiques.</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 8 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 8: Variables d'environnement</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Manipulez les variables d'environnement et comprenez leur
+                     utilité.</p>
+                  <p class="mb-3"><strong>Objectif :</strong> Comprendre le rôle des variables et le PATH.</p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>echo $HOME            # Affiche une variable
+export MA_VAR="valeur" # Crée une variable
+env                   # Liste toutes les variables
+echo $PATH            # Affiche le PATH
+export PATH=$PATH:/nouveau/chemin  # Ajoute au PATH
+unset MA_VAR          # Supprime une variable</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : Les
+                        modifications du PATH dans le terminal sont temporaires. Pour les rendre permanentes,
+                        ajoutez-les à <code>~/.bashrc</code>.</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 9 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 9: Processus et jobs</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Gérez les processus en cours d'exécution sur votre système.
+                  </p>
+                  <p class="mb-3"><strong>Objectif :</strong> Comprendre la gestion des processus avec ps, top, kill.
+                  </p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>ps                     # Liste des processus
+ps aux                 # Liste détaillée
+top                    # Tableau de bord interactif
+htop                   # Version améliorée (à installer)
+kill 1234              # Termine le processus 1234
+kill -9 1234           # Force la terminaison
+Ctrl+Z                 # Met en pause un processus
+bg                     # Reprend en arrière-plan
+fg                     # Ramène au premier plan
+jobs                   # Liste les jobs</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce :
+                        <code>pkill</code> et <code>killall</code> permettent de tuer des processus par nom.</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Exercise 10 -->
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+               <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                  <h3 class="font-semibold text-lg">Exercice 10: Script Bash simple</h3>
+               </div>
+               <div class="p-4">
+                  <p class="mb-3"><strong>Énoncé :</strong> Créez un script Bash qui affiche des informations système.
+                  </p>
+                  <p class="mb-3"><strong>Objectif :</strong> Écrire et exécuter un premier script Bash.</p>
+                  <button
+                     class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
+                     <i class="fas fa-eye mr-1"></i> Afficher la solution
+                  </button>
+                  <div class="solution mt-3">
+                     <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                     <pre><code>#!/bin/bash
+# Mon premier script
+echo "Bonjour $USER!"
+echo "Date: $(date)"
+echo "Uptime: $(uptime)"
+echo "Utilisation disque:"
+df -h | grep -v "tmpfs"
+echo "Processus en cours:"
+ps aux | wc -l</code></pre>
+                     <p class="mb-2 mt-4">Pour exécuter :</p>
+                     <pre><code>chmod +x script.sh  # Rend exécutable
+./script.sh         # Exécute le script</code></pre>
+                     <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : La première
+                        ligne (<code>#!/bin/bash</code>) est le shebang qui indique l'interpréteur à utiliser.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Cheat Sheet Tab -->
+      <div id="cheatsheet" class="tab-content bg-white p-6 rounded-lg shadow-md mb-6">
+         <h2 class="text-2xl font-bold mb-6 text-blue-700">
+            <i class="fas fa-book mr-2"></i> Cheat Sheet des Commandes Bash
+         </h2>
+         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Fichiers et répertoires -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
+                  <i class="fas fa-folder mr-2"></i> Fichiers & Répertoires
+               </h3>
+               <ul class="space-y-2">
+                  <li><code>ls</code> - Lister les fichiers</li>
+                  <li><code>ls -l</code> - Lister avec détails</li>
+                  <li><code>ls -a</code> - Afficher fichiers cachés</li>
+                  <li><code>cd</code> - Changer de répertoire</li>
+                  <li><code>pwd</code> - Afficher le répertoire courant</li>
+                  <li><code>mkdir</code> - Créer un répertoire</li>
+                  <li><code>rmdir</code> - Supprimer répertoire vide</li>
+                  <li><code>rm -r</code> - Supprimer récursivement</li>
+                  <li><code>cp</code> - Copier</li>
+                  <li><code>mv</code> - Déplacer/renommer</li>
+                  <li><code>touch</code> - Créer fichier vide</li>
+               </ul>
+            </div>
+            <!-- Visualisation et recherche -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
+                  <i class="fas fa-search mr-2"></i> Visualisation & Recherche
+               </h3>
+               <ul class="space-y-2">
+                  <li><code>cat</code> - Afficher fichier</li>
+                  <li><code>less</code> - Afficher page par page</li>
+                  <li><code>head</code> - Premières lignes</li>
+                  <li><code>tail</code> - Dernières lignes</li>
+                  <li><code>tail -f</code> - Suivre en temps réel</li>
+                  <li><code>grep</code> - Rechercher du texte</li>
+                  <li><code>find</code> - Rechercher fichiers</li>
+                  <li><code>locate</code> - Recherche rapide</li>
+                  <li><code>wc</code> - Compter lignes/mots</li>
+                  <li><code>diff</code> - Comparer fichiers</li>
+               </ul>
+            </div>
+            <!-- Permissions -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
+                  <i class="fas fa-lock mr-2"></i> Permissions
+               </h3>
+               <ul class="space-y-2">
+                  <li><code>chmod</code> - Modifier permissions</li>
+                  <li><code>chown</code> - Modifier propriétaire</li>
+                  <li><code>chgrp</code> - Modifier groupe</li>
+                  <li><code>umask</code> - Permissions par défaut</li>
+                  <li><code>sudo</code> - Exécuter en root</li>
+                  <li><code>su</code> - Changer d'utilisateur</li>
+                  <li><code>passwd</code> - Changer mot de passe</li>
+               </ul>
+            </div>
+            <!-- Processus -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
+                  <i class="fas fa-tasks mr-2"></i> Processus
+               </h3>
+               <ul class="space-y-2">
+                  <li><code>ps</code> - Lister processus</li>
+                  <li><code>top</code> - Moniteur interactif</li>
+                  <li><code>htop</code> - Version améliorée</li>
+                  <li><code>kill</code> - Terminer processus</li>
+                  <li><code>killall</code> - Terminer par nom</li>
+                  <li><code>pkill</code> - Terminer par motif</li>
+                  <li><code>bg</code> - Mettre en arrière-plan</li>
+                  <li><code>fg</code> - Ramener au premier plan</li>
+                  <li><code>jobs</code> - Lister les jobs</li>
+               </ul>
+            </div>
+            <!-- Réseau -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
+                  <i class="fas fa-network-wired mr-2"></i> Réseau
+               </h3>
+               <ul class="space-y-2">
+                  <li><code>ifconfig</code> - Config réseau</li>
+                  <li><code>ip</code> - Version moderne</li>
+                  <li><code>ping</code> - Tester connexion</li>
+                  <li><code>netstat</code> - Statistiques réseau</li>
+                  <li><code>ss</code> - Sockets en écoute</li>
+                  <li><code>traceroute</code> - Tracer route</li>
+                  <li><code>dig</code> - Requêtes DNS</li>
+                  <li><code>nslookup</code> - Recherche DNS</li>
+                  <li><code>wget</code> - Téléchargement</li>
+                  <li><code>curl</code> - Transfert URL</li>
+               </ul>
+            </div>
+            <!-- Divers -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600 border-b pb-2">
+                  <i class="fas fa-random mr-2"></i> Divers
+               </h3>
+               <ul class="space-y-2">
+                  <li><code>man</code> - Manuel</li>
+                  <li><code>--help</code> - Aide rapide</li>
+                  <li><code>history</code> - Historique</li>
+                  <li><code>alias</code> - Créer alias</li>
+                  <li><code>unalias</code> - Supprimer alias</li>
+                  <li><code>echo</code> - Afficher texte</li>
+                  <li><code>date</code> - Date/heure</li>
+                  <li><code>tar</code> - Archivage</li>
+                  <li><code>zip/unzip</code> - Compression</li>
+                  <li><code>df</code> - Espace disque</li>
+                  <li><code>du</code> - Utilisation espace</li>
+               </ul>
+            </div>
+         </div>
+         <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <h3 class="text-lg font-semibold mb-2 text-blue-700">
+               <i class="fas fa-download mr-2"></i> Télécharger cette Cheat Sheet
+            </h3>
+            <p class="mb-3">Vous pouvez sauvegarder cette page (Ctrl+S) ou imprimer (Ctrl+P) pour avoir cette cheat
+               sheet toujours à portée de main.</p>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
+               <i class="fas fa-file-pdf mr-2"></i> Exporter en PDF
+            </button>
+         </div>
+      </div>
+      <!-- Concepts Linux Tab -->
+      <div id="concepts" class="tab-content bg-white p-6 rounded-lg shadow-md mb-6">
+         <h2 class="text-2xl font-bold mb-6 text-blue-700">
+            <i class="fas fa-brain mr-2"></i> Concepts Fondamentaux de Linux
+         </h2>
+         <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Système de fichiers -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600">
+                  <i class="fas fa-folder-tree mr-2"></i> Système de fichiers Linux
+               </h3>
+               <p class="mb-3">Linux utilise une structure arborescente unifiée, avec <code>/</code> comme racine.
+                  Principaux répertoires :</p>
+               <ul class="list-disc pl-5 space-y-1">
+                  <li><code>/bin</code> - Commandes essentielles</li>
+                  <li><code>/etc</code> - Fichiers de configuration</li>
+                  <li><code>/home</code> - Répertoires utilisateurs</li>
+                  <li><code>/var</code> - Fichiers variables (logs)</li>
+                  <li><code>/tmp</code> - Fichiers temporaires</li>
+                  <li><code>/usr</code> - Programmes utilisateurs</li>
+                  <li><code>/root</code> - Home de root</li>
+                  <li><code>/dev</code> - Périphériques</li>
+               </ul>
+            </div>
+            <!-- Permissions -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600">
+                  <i class="fas fa-user-shield mr-2"></i> Système de permissions
+               </h3>
+               <p class="mb-2">Chaque fichier a des permissions pour :</p>
+               <ul class="list-disc pl-5 mb-3 space-y-1">
+                  <li>Propriétaire (user)</li>
+                  <li>Groupe (group)</li>
+                  <li>Autres (others)</li>
+               </ul>
+               <p class="mb-2">Types de permissions :</p>
+               <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>r</strong> (4) - Lecture</li>
+                  <li><strong>w</strong> (2) - Écriture</li>
+                  <li><strong>x</strong> (1) - Exécution</li>
+               </ul>
+               <p class="mt-3 text-sm">Exemple : <code>chmod 755</code> = rwxr-xr-x</p>
+            </div>
+         </div>
+         <!-- Users et privilèges -->
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
+            <h3 class="text-xl font-semibold mb-3 text-blue-600">
+               <i class="fas fa-users mr-2"></i> Utilisateurs et Privilèges
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+               <div>
+                  <h4 class="font-medium mb-2">Fichiers importants :</h4>
+                  <ul class="list-disc pl-5 space-y-1">
+                     <li><code>/etc/passwd</code> - Comptes utilisateurs</li>
+                     <li><code>/etc/shadow</code> - Mots de passe hashés</li>
+                     <li><code>/etc/group</code> - Groupes</li>
+                     <li><code>/etc/sudoers</code> - Droits sudo</li>
+                  </ul>
+               </div>
+               <div>
+                  <h4 class="font-medium mb-2">Commandes :</h4>
+                  <ul class="list-disc pl-5 space-y-1">
+                     <li><code>useradd</code> - Ajouter utilisateur</li>
+                     <li><code>usermod</code> - Modifier utilisateur</li>
+                     <li><code>userdel</code> - Supprimer utilisateur</li>
+                     <li><code>groupadd</code> - Ajouter groupe</li>
+                     <li><code>passwd</code> - Changer mot de passe</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <!-- SUID, sudo -->
+         <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600">
+                  <i class="fas fa-user-secret mr-2"></i> SUID/GUID
+               </h3>
+               <p class="mb-3">Bit spécial qui permet d'exécuter un programme avec les droits de son propriétaire (SUID)
+                  ou de son groupe (GUID).</p>
+               <p class="mb-2">Exemple :</p>
+               <pre class="text-sm"><code>-rwsr-xr-x 1 root root 30800 Aug 21  2020 /usr/bin/passwd</code></pre>
+               <p class="mt-3 text-sm">Le <code>s</code> indique que le SUID est activé. Risque de sécurité si mal
+                  configuré.</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+               <h3 class="text-xl font-semibold mb-3 text-blue-600">
+                  <i class="fas fa-crown mr-2"></i> Sudo
+               </h3>
+               <p class="mb-3">Commande qui permet d'exécuter des commandes avec les privilèges d'un autre utilisateur
+                  (par défaut root).</p>
+               <p class="mb-2">Exemples :</p>
+               <pre class="text-sm"><code>sudo apt update          # Exécute en tant que root
+sudo -u user command    # Exécute en tant qu'un autre utilisateur
+sudo -i                 # Ouvre un shell root</code></pre>
+               <p class="mt-3 text-sm">Configuré dans <code>/etc/sudoers</code> (toujours utiliser <code>visudo</code>
+                  pour éditer).</p>
+            </div>
+         </div>
+         <!-- Variables d'environnement -->
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
+            <h3 class="text-xl font-semibold mb-3 text-blue-600">
+               <i class="fas fa-code mr-2"></i> Variables d'Environnement
+            </h3>
+            <p class="mb-3">Variables globales qui influencent le comportement des processus. Essentielles pour le
+               fonctionnement du système.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+               <div>
+                  <h4 class="font-medium mb-2">Variables importantes :</h4>
+                  <ul class="list-disc pl-5 space-y-1">
+                     <li><code>PATH</code> - Chemins pour les commandes</li>
+                     <li><code>HOME</code> - Répertoire home</li>
+                     <li><code>USER</code> - Nom d'utilisateur</li>
+                     <li><code>SHELL</code> - Shell par défaut</li>
+                     <li><code>PS1</code> - Prompt du shell</li>
+                  </ul>
+               </div>
+               <div>
+                  <h4 class="font-medium mb-2">Commandes :</h4>
+                  <ul class="list-disc pl-5 space-y-1">
+                     <li><code>env</code> - Afficher toutes les variables</li>
+                     <li><code>echo $VAR</code> - Afficher une variable</li>
+                     <li><code>export VAR=valeur</code> - Définir</li>
+                     <li><code>unset VAR</code> - Supprimer</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <!-- Redirections et pipes -->
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="text-xl font-semibold mb-3 text-blue-600">
+               <i class="fas fa-arrows-alt-h mr-2"></i> Redirections et Pipes
+            </h3>
+            <p class="mb-3">Mécanismes pour manipuler les flux d'entrée/sortie des commandes.</p>
+            <div class="overflow-x-auto">
+               <table class="min-w-full bg-white">
+                  <thead>
+                     <tr class="bg-gray-100">
+                        <th class="py-2 px-4 border">Symbole</th>
+                        <th class="py-2 px-4 border">Description</th>
+                        <th class="py-2 px-4 border">Exemple</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td class="py-2 px-4 border"><code>></code></td>
+                        <td class="py-2 px-4 border">Redirige la sortie vers un fichier (écrase)</td>
+                        <td class="py-2 px-4 border"><code>ls > fichiers.txt</code></td>
+                     </tr>
+                     <tr>
+                        <td class="py-2 px-4 border"><code>>></code></td>
+                        <td class="py-2 px-4 border">Ajoute la sortie à un fichier</td>
+                        <td class="py-2 px-4 border"><code>echo "test" >> fichier.txt</code></td>
+                     </tr>
+                     <tr>
+                        <td class="py-2 px-4 border"><code><</code></td>
+                        <td class="py-2 px-4 border">Redirige un fichier vers l'entrée</td>
+                        <td class="py-2 px-4 border"><code>sort < fichier.txt</code></td>
+                     </tr>
+                     <tr>
+                        <td class="py-2 px-4 border"><code>|</code></td>
+                        <td class="py-2 px-4 border">Pipe (passe la sortie à une autre commande)</td>
+                        <td class="py-2 px-4 border"><code>ls -l | grep ".txt"</code></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      // Gestion des onglets et ancres
+      function activateTab(tabId) {
          const tabBtns = document.querySelectorAll('.tab-btn');
          const tabContents = document.querySelectorAll('.tab-content');
-         
+
+         // Hide all tabs
+         tabContents.forEach(content => {
+            content.classList.remove('active');
+         });
+
+         // Deactivate all buttons
          tabBtns.forEach(btn => {
-             btn.addEventListener('click', () => {
-                 const tabId = btn.getAttribute('data-tab');
-                 
-                 // Hide all tabs
-                 tabContents.forEach(content => {
-                     content.classList.remove('active');
-                 });
-                 
-                 // Deactivate all buttons
-                 tabBtns.forEach(btn => {
-                     btn.classList.remove('text-blue-600', 'border-blue-600');
-                     btn.classList.add('text-gray-600');
-                 });
-                 
-                 // Show selected tab
-                 document.getElementById(tabId).classList.add('active');
-                 
-                 // Activate button
-                 btn.classList.add('text-blue-600', 'border-blue-600');
-                 btn.classList.remove('text-gray-600');
-             });
+            btn.classList.remove('text-blue-600', 'border-blue-600');
+            btn.classList.add('text-gray-600');
          });
-         
-         // Solution toggles
-         const solutionBtns = document.querySelectorAll('.solution-btn');
-         
-         solutionBtns.forEach(btn => {
-             btn.addEventListener('click', () => {
-                 const solution = btn.nextElementSibling;
-                 solution.classList.toggle('show');
-                 
-                 if (solution.classList.contains('show')) {
-                     btn.innerHTML = '<i class="fas fa-eye-slash mr-1"></i> Cacher la solution';
-                 } else {
-                     btn.innerHTML = '<i class="fas fa-eye mr-1"></i> Afficher la solution';
-                 }
-             });
+
+         // Show selected tab
+         document.getElementById(tabId).classList.add('active');
+
+         // Activate button
+         document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('text-blue-600', 'border-blue-600');
+         document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.remove('text-gray-600');
+      }
+
+      // Tab switching
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(btn => {
+         btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            activateTab(tabId);
          });
-      </script>
-   </body>
+      });
+
+      // Gestion de l'URL au chargement
+      window.addEventListener('load', () => {
+         if (window.location.hash) {
+            const tabId = window.location.hash.substring(1);
+            if (document.getElementById(tabId)) {
+               activateTab(tabId);
+            }
+         }
+      });
+
+      // Solution toggles
+      const solutionBtns = document.querySelectorAll('.solution-btn, .solution-step-btn');
+
+      solutionBtns.forEach(btn => {
+         btn.addEventListener('click', () => {
+            const solution = btn.nextElementSibling;
+            solution.classList.toggle('show');
+
+            const icon = btn.querySelector('i');
+            if (solution.classList.contains('show')) {
+               icon.classList.remove('fa-eye');
+               icon.classList.add('fa-eye-slash');
+               btn.innerHTML = btn.innerHTML.replace('Voir', 'Cacher');
+            } else {
+               icon.classList.remove('fa-eye-slash');
+               icon.classList.add('fa-eye');
+               btn.innerHTML = btn.innerHTML.replace('Cacher', 'Voir');
+            }
+         });
+      });
+   </script>
+</body>
+
 </html>
