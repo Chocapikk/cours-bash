@@ -128,244 +128,251 @@
                <i class="fas fa-dumbbell mr-2"></i> 10 Exercices pour maîtriser Bash
             </h2>
             <div class="space-y-6">
-               <!-- Exercise 1 -->
+               <!-- Exercice 1 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 1: Navigation de base</h3>
+                     <h3 class="font-semibold text-lg">Exercice 1 : Navigation de base</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Naviguez dans votre système de fichiers pour explorer différents répertoires.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Apprendre à se déplacer dans l'arborescence des fichiers.</p>
+                     <p class="mb-3"><strong>Énoncé :</strong> Parcourez l’arborescence pour repérer votre position et explorer d’autres répertoires.</p>
+                     <p class="mb-3"><strong>Objectif :</strong> Comprendre <code>pwd</code>, <code>ls</code>, <code>cd</code>.</p>
                      <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
                      <i class="fas fa-eye mr-1"></i> Afficher la solution
                      </button>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>pwd                  # Affiche le répertoire courant
-ls                   # Liste les fichiers du répertoire
-cd ~                 # Va au répertoire home
-cd /var/log          # Va dans le répertoire /var/log
-cd ..                # Remonte d'un niveau
-cd -                 # Retourne au répertoire précédent</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : Utilisez la touche Tab pour l'auto-complétion des noms de répertoires.</p>
+                        <ol class="list-decimal list-inside mb-2">
+                           <li><code>pwd</code> → notez votre répertoire courant.</li>
+                           <li><code>ls -lah</code> → liste détaillée (fichiers cachés inclus).</li>
+                           <li><code>cd /etc</code> puis <code>pwd</code> et <code>ls</code>.</li>
+                           <li><code>cd ~</code> puis <code>cd -</code> pour revenir au précédent.</li>
+                           <li><code>cd /var/log</code>, puis <code>cd ..</code> pour remonter.</li>
+                        </ol>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : utilisez Tab pour compléter automatiquement.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 2 -->
+               <!-- Exercice 2 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 2: Création de fichiers et répertoires</h3>
+                     <h3 class="font-semibold text-lg">Exercice 2 : Création de fichiers et répertoires</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Créez une structure de répertoires et des fichiers dans votre home directory.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Maîtriser la création et gestion des fichiers/répertoires.</p>
+                     <p class="mb-3"><strong>Énoncé :</strong> Construisez une structure de projet, puis visualisez-la.</p>
+                     <p class="mb-3"><strong>Objectif :</strong> Maîtriser <code>mkdir</code>, <code>touch</code>, <code>rm</code> et <code>tree</code>.</p>
                      <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
                      <i class="fas fa-eye mr-1"></i> Afficher la solution
                      </button>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>mkdir mon_projet                     # Crée un répertoire
-mkdir -p mon_projet/{docs,src,tests} # Crée une arborescence
-touch mon_projet/src/main.sh         # Crée un fichier vide
-echo "#!/bin/bash" > mon_projet/src/main.sh  # Écrit dans le fichier
-rmdir mon_projet/tests               # Supprime un répertoire vide
-rm -r mon_projet/docs                # Supprime récursivement</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : <code>mkdir -p</code> crée tous les répertoires parents nécessaires.</p>
+                        <ol class="list-decimal list-inside mb-2">
+                           <li><code>mkdir -p mon_projet/{src,docs,tests}</code></li>
+                           <li><code>touch mon_projet/src/main.sh mon_projet/README.md</code></li>
+                           <li><code>tree mon_projet</code> pour voir :</li>
+                        </ol>
+                        <pre><code>mon_projet/
+ ├── docs
+ │   └── README.md
+ ├── src
+ │   └── main.sh
+ └── tests</code></pre>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Installez <code>tree</code> si nécessaire.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 3 -->
+               <!-- Exercice 2bis -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 3: Visualisation de fichiers</h3>
+                     <h3 class="font-semibold text-lg">Exercice 2bis : Arborescence complexe</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Affichez le contenu de différents fichiers système.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Apprendre à lire des fichiers avec différentes commandes.</p>
+                     <p class="mb-3"><strong>Énoncé :</strong> Créez en une ligne plusieurs niveaux, puis vérifiez.</p>
+                     <p class="mb-3"><strong>Objectif :</strong> Utiliser les accolades imbriquées.</p>
                      <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
                      <i class="fas fa-eye mr-1"></i> Afficher la solution
                      </button>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>cat /etc/passwd              # Affiche tout le fichier
-less /etc/passwd             # Affiche page par page (quitter avec q)
-head -n 5 /etc/passwd        # Affiche les 5 premières lignes
-tail -n 5 /etc/passwd        # Affiche les 5 dernières lignes
-wc -l /etc/passwd            # Compte le nombre de lignes</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : <code>less</code> est idéal pour les longs fichiers (flèches pour naviguer, / pour chercher).</p>
+                        <pre><code>mkdir -p projet/{app/{bin,lib},config/{dev,prod},data/{in,out}}</code></pre>
+                        <p>Puis <code>tree projet</code> pour voir :</p>
+                        <pre><code>projet/
+ ├── app
+ │   ├── bin
+ │   └── lib
+ ├── config
+ │   ├── dev
+ │   └── prod
+ └── data
+     ├── in
+     └── out</code></pre>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 4 -->
+               <!-- Exercice 3 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 4: Redirections et pipes</h3>
+                     <h3 class="font-semibold text-lg">Exercice 3 : Visualisation de fichiers</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Utilisez les redirections pour manipuler les entrées/sorties des commandes.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Comprendre les flux standards et les pipes.</p>
+                     <p class="mb-3"><strong>Énoncé :</strong> Affichez des fichiers système avec <code>cat</code>, <code>less</code>, <code>head</code>, <code>tail</code>, <code>wc</code>.</p>
                      <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
                      <i class="fas fa-eye mr-1"></i> Afficher la solution
                      </button>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>ls -l > liste_fichiers.txt    # Redirige la sortie vers un fichier
-echo "bonjour" >> liste_fichiers.txt  # Ajoute à la fin du fichier
-grep "root" /etc/passwd > root_info.txt  # Filtre et redirige
-ls -l | grep ".txt"          # Pipe: utilise la sortie d'une commande comme entrée
-ls -l | tee liste.txt        # Affiche ET enregistre dans un fichier</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : <code>></code> écrase le fichier, <code>>></code> ajoute à la fin.</p>
+                        <ol class="list-decimal list-inside mb-2">
+                           <li><code>cat /etc/passwd</code></li>
+                           <li><code>less /etc/passwd</code> (quittez avec <kbd>q</kbd>)</li>
+                           <li><code>head -n 5 /etc/passwd</code></li>
+                           <li><code>tail -n 5 /etc/passwd</code></li>
+                           <li><code>wc -l /etc/passwd</code></li>
+                        </ol>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>less +/motif fichier</code> cherche directement.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 5 -->
+               <!-- Exercice 4 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 5: Recherche avec grep</h3>
+                     <h3 class="font-semibold text-lg">Exercice 4 : Redirections et pipes</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Recherchez des motifs dans des fichiers et dans la sortie d'autres commandes.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Maîtriser grep pour filtrer efficacement du texte.</p>
+                     <p class="mb-3"><strong>Énoncé :</strong> Redirigez la sortie, ajoutez du contenu et pipez vers d’autres commandes.</p>
                      <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
                      <i class="fas fa-eye mr-1"></i> Afficher la solution
                      </button>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>grep "bash" /etc/passwd           # Recherche simple
-grep -i "BASH" /etc/passwd        # Insensible à la casse
-grep -v "nologin" /etc/passwd     # Inverser la recherche
-grep -r "error" /var/log          # Recherche récursive
-ps aux | grep "chrome"            # Recherche dans la sortie d'une commande
-grep -E "^[a-z]+:" /etc/passwd    # Expressions régulières</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : <code>-E</code> active les expressions régulières étendues (plus puissantes).</p>
+                        <ul class="list-disc list-inside mb-2">
+                           <li><code>ls -l > liste.txt</code></li>
+                           <li><code>echo "bonjour" >> liste.txt</code></li>
+                           <li><code>grep "root" /etc/passwd > root.txt</code></li>
+                           <li><code>ls -l | grep "\.txt"</code></li>
+                           <li><code>ls -l | tee sortie.txt</code></li>
+                        </ul>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>2>&1</code> redirige aussi stderr.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 6 -->
+               <!-- Exercice 5 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 6: Gestion des permissions</h3>
+                     <h3 class="font-semibold text-lg">Exercice 5 : Recherche avec grep</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Modifiez les permissions de fichiers et comprenez le système de droits Unix.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Comprendre chmod, chown et les permissions.</p>
+                     <p class="mb-3"><strong>Énoncé :</strong> Utilisez <code>grep</code> pour filtrer du texte avec <code>-i</code>, <code>-v</code>, <code>-r</code>, <code>-E</code>.</p>
                      <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
                      <i class="fas fa-eye mr-1"></i> Afficher la solution
                      </button>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>ls -l                    # Voir les permissions
-chmod +x script.sh       # Ajoute le droit d'exécution
-chmod 755 script.sh      # rwxr-xr-x (user:rwx, group:r-x, others:r-x)
-chmod u=rw,g=r,o= fichier  # Notation symbolique
-chown user:group fichier # Change propriétaire et groupe
-sudo chown root fichier  # Nécessite les droits root</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : Les permissions sont en octal (4:lecture, 2:écriture, 1:exécution).</p>
+                        <pre><code>grep "bash" /etc/passwd
+ grep -i "BASH" /etc/passwd
+ grep -v "nologin" /etc/passwd
+ grep -r "error" /var/log
+ ps aux | grep "chrome"
+ grep -E "^[a-z]+:" /etc/passwd</code></pre>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Ajoutez <code>--color=auto</code> pour surligner.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 7 -->
+               <!-- Exercice 6 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 7: Historique et complétion</h3>
+                     <h3 class="font-semibold text-lg">Exercice 6 : Gestion des permissions</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Utilisez efficacement l'historique des commandes et les raccourcis clavier.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Gagner en productivité avec les raccourcis Bash.</p>
+                     <p class="mb-3"><strong>Énoncé :</strong> Vérifiez et modifiez permissions et propriétaires.</p>
                      <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
                      <i class="fas fa-eye mr-1"></i> Afficher la solution
                      </button>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>history                # Affiche l'historique
-!42                    # Exécute la commande n°42
-!!                     # Répète la dernière commande
-!ls                    # Répète la dernière commande ls
-Ctrl+R                 # Recherche dans l'historique
-Ctrl+A / Ctrl+E        # Début/Fin de ligne
-Ctrl+U / Ctrl+K        # Couper avant/après le curseur
-Ctrl+Y                 # Coller le texte coupé
-Alt+.                  # Insère le dernier argument</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : <code>history | grep "apt"</code> pour trouver des commandes spécifiques.</p>
+                        <ol class="list-decimal list-inside mb-2">
+                           <li><code>ls -l script.sh</code></li>
+                           <li><code>chmod +x script.sh</code></li>
+                           <li><code>chmod 644 script.sh</code></li>
+                           <li><code>chmod u=rw,g=r,o= script.sh</code></li>
+                           <li><code>sudo chown root:root script.sh</code></li>
+                        </ol>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>stat fichier</code> donne le détail.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 8 -->
+               <!-- Exercice 7 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 8: Variables d'environnement</h3>
+                     <h3 class="font-semibold text-lg">Exercice 7 : Historique et complétion</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Manipulez les variables d'environnement et comprenez leur utilité.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Comprendre le rôle des variables et le PATH.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
+                     <p class="mb-3"><strong>Énoncé :</strong> Exploitez l’historique et raccourcis clavier.</p>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>echo $HOME            # Affiche une variable
-export MA_VAR="valeur" # Crée une variable
-env                   # Liste toutes les variables
-echo $PATH            # Affiche le PATH
-export PATH=$PATH:/nouveau/chemin  # Ajoute au PATH
-unset MA_VAR          # Supprime une variable</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : Les modifications du PATH dans le terminal sont temporaires. Pour les rendre permanentes, ajoutez-les à <code>~/.bashrc</code>.</p>
+                        <pre><code>history
+ !42
+ !!
+ !ls
+ Ctrl+R
+ Ctrl+A / Ctrl+E
+ Ctrl+U / Ctrl+K
+ Ctrl+Y
+ Alt.</code></pre>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> <code>history | grep apt</code> pour filtrer.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 9 -->
+               <!-- Exercice 8 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 9: Processus et jobs</h3>
+                     <h3 class="font-semibold text-lg">Exercice 8 : Variables d’environnement</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Gérez les processus en cours d'exécution sur votre système.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Comprendre la gestion des processus avec ps, top, kill.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
+                     <p class="mb-3"><strong>Énoncé :</strong> Créez, affichez et supprimez des variables.</p>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
-                        <pre><code>ps                     # Liste des processus
-ps aux                 # Liste détaillée
-top                    # Tableau de bord interactif
-htop                   # Version améliorée (à installer)
-kill 1234              # Termine le processus 1234
-kill -9 1234           # Force la terminaison
-Ctrl+Z                 # Met en pause un processus
-bg                     # Reprend en arrière-plan
-fg                     # Ramène au premier plan
-jobs                   # Liste les jobs</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : <code>pkill</code> et <code>killall</code> permettent de tuer des processus par nom.</p>
+                        <ol class="list-decimal list-inside mb-2">
+                           <li><code>echo $HOME</code></li>
+                           <li><code>export MA_VAR="test"</code></li>
+                           <li><code>env | grep MA_VAR</code></li>
+                           <li><code>export PATH=$PATH:/opt/bin</code></li>
+                           <li><code>unset MA_VAR</code></li>
+                        </ol>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Pour rendre permanent, ajoutez à <code>~/.bashrc</code>.</p>
                      </div>
                   </div>
                </div>
-               <!-- Exercise 10 -->
+               <!-- Exercice 9 -->
                <div class="border border-gray-200 rounded-lg overflow-hidden">
                   <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                     <h3 class="font-semibold text-lg">Exercice 10: Script Bash simple</h3>
+                     <h3 class="font-semibold text-lg">Exercice 9 : Processus et jobs</h3>
                   </div>
                   <div class="p-4">
-                     <p class="mb-3"><strong>Énoncé :</strong> Créez un script Bash qui affiche des informations système.</p>
-                     <p class="mb-3"><strong>Objectif :</strong> Écrire et exécuter un premier script Bash.</p>
-                     <button class="solution-btn bg-blue-100 hover:bg-blue-200 text-blue-800 font-medium py-1 px-3 rounded text-sm transition-colors">
-                     <i class="fas fa-eye mr-1"></i> Afficher la solution
-                     </button>
+                     <p class="mb-3"><strong>Énoncé :</strong> Surveillez et contrôlez les processus.</p>
                      <div class="solution mt-3">
-                        <p class="mb-2 font-medium">Commandes à utiliser :</p>
+                        <ol class="list-decimal list-inside mb-2">
+                           <li><code>ps aux</code> → repérez un PID.</li>
+                           <li><code>kill PID</code> → termine le processus.</li>
+                           <li><code>kill -9 PID</code> → force l’arrêt.</li>
+                           <li><code>Ctrl+Z</code> → suspend le job.</li>
+                           <li><code>bg</code> et <code>fg</code> → gérer arrière/avant plan.</li>
+                           <li><code>jobs</code> → liste des jobs.</li>
+                        </ol>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Installez <code>htop</code> pour interface améliorée.</p>
+                     </div>
+                  </div>
+               </div>
+               <!-- Exercice 10 -->
+               <div class="border border-gray-200 rounded-lg overflow-hidden">
+                  <div class="bg-gray-50 px-4 py-3 border-b border-gray-200">
+                     <h3 class="font-semibold text-lg">Exercice 10 : Script Bash simple</h3>
+                  </div>
+                  <div class="p-4">
+                     <p class="mb-3"><strong>Énoncé :</strong> Rédigez un script qui affiche des infos système.</p>
+                     <div class="solution mt-3">
                         <pre><code>#!/bin/bash
-# Mon premier script
-echo "Bonjour $USER!"
-echo "Date: $(date)"
-echo "Uptime: $(uptime)"
-echo "Utilisation disque:"
-df -h | grep -v "tmpfs"
-echo "Processus en cours:"
-ps aux | wc -l</code></pre>
-                        <p class="mb-2 mt-4">Pour exécuter :</p>
-                        <pre><code>chmod +x script.sh  # Rend exécutable
-./script.sh         # Exécute le script</code></pre>
-                        <p class="mt-2 text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Astuce : La première ligne (<code>#!/bin/bash</code>) est le shebang qui indique l'interpréteur à utiliser.</p>
+ # Mon premier script
+ set -euo pipefail
+ echo \"Bonjour \$USER !\"
+ echo \"Date : \$(date '+%Y-%m-%d %H:%M:%S')\"
+ echo \"Uptime : \$(uptime -p)\"
+ echo \"Disques :\"
+ df -h --output=source,fstype,size,used,avail,pcent | grep -v tmpfs
+ echo \"Processus : \$(ps aux | wc -l)\"</code></pre>
+                        <p class="mt-2 mb-2">Pour exécuter :</p>
+                        <pre><code>chmod +x script.sh
+ ./script.sh</code></pre>
+                        <p class="text-sm text-gray-600"><i class="fas fa-lightbulb mr-1"></i> Le shebang et <code>set -euo pipefail</code> renforcent la robustesse.</p>
                      </div>
                   </div>
                </div>
